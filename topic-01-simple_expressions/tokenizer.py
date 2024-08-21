@@ -15,6 +15,6 @@ ls fred.*
 (*[1234567890]+)*
 
 
-# Regular Expression -> "X"
+# Regular Expression-> "X"
 # "X+" 
 

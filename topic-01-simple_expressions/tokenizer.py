@@ -9,13 +9,11 @@ import re
 patterns = [
     ["\\(", "("],
     ["\\)", ")"],
-    ["\\+", "+"],
+    ["\\+", "++"],
     ["\\-", "-"],
     ["\\*", "*"],
     ["\\/", "/"],
-    [
-        "(\\d+\\.\\d*)|(\\d*\.\\d+)|(\\d+)", "number"
-    ],
+    ["(\\d+\\.\\d*)|(\\d*\.\\d+)|(\\d+)", "number"],
 ]
 
 # string & regular spatial patterns
@@ -26,20 +24,18 @@ for pattern in patterns:
 def tokenize(characters):
     tokens = []
     position = 0
-
     while position < len(characters):
         for pattern, tag in patterns:
             match = pattern.match(characters, position)
             if match:
                 break
         assert match
-        #print("match found.", match)
         token = {
-            'tag': tag,
-            'value': match.group[0],
-            'position': position, 
+            "tag": tag,
+            "value": match.group[0],
+            "position": position, 
         }
-        tokens.append(match)
+        tokens.append(token)
         position = match.end()
     return tokens
 
@@ -55,7 +51,12 @@ def test_simple_tokens():
         assert tokens[0]["value"] == char
         assert tokens[0]["position"] == i
 
-    for number in ["123.45"]:
+    for characters in ["+", "-"]:
+        tokens = tokenize(characters)
+        assert tokens[0]["tag"] == characters
+        assert tokens[0]["value"] == characters
+
+    for number in ["123.45", "1.", ".1", "123"]:
         tokens = tokenize(number)
         assert tokens[0]["tag"] == "number"
 

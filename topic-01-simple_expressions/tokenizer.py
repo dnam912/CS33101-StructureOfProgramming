@@ -44,7 +44,7 @@ def tokenize(characters):
                 token["value"] = float(token["value"])
             else:
                 token["value"] = int(token["value"])
-                
+
     return tokens
 
 def test_simple_tokens():
@@ -67,9 +67,10 @@ def test_simple_tokens():
     for number in ["123.45", "1.", ".1", "123"]:
         tokens = tokenize(number)
         assert tokens[0]["tag"] == "number"
+        assert tokens[0]["value"] == float(number)
 
 if __name__ == "__main__":
     test_simple_tokens()
-    tokens = tokenize("123.45")
-    print(tokens)
+    #tokens = tokenize("123.45")
+    #print(tokens)
     print("done.")

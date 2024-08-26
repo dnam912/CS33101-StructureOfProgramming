@@ -1,8 +1,8 @@
 # tokenizer
 
-""""
+"""
 break character stream into tokens, provide a token stream
-""""
+"""
 
 import re
 

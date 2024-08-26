@@ -37,6 +37,14 @@ def tokenize(characters):
         }
         tokens.append(token)
         position = match.end()
+
+    for token in tokens:
+        if token["tag"] == "number":
+            if "." in token["value"]:
+                token["value"] = float(token["value"])
+            else:
+                token["value"] = int(token["value"])
+                
     return tokens
 
 def test_simple_tokens():

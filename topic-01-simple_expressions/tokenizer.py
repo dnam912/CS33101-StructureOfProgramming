@@ -1,15 +1,15 @@
 # tokenizer
 
-"""""
+""""
 break character stream into tokens, provide a token stream
-"""""
+""""
 
 import re
 
 patterns = [
     ["\\(", "("],
     ["\\)", ")"],
-    ["\\+", "++"],
+    ["\\+", "+"],
     ["\\-", "-"],
     ["\\*", "*"],
     ["\\/", "/"],
@@ -37,33 +37,29 @@ def tokenize(characters):
         }
         tokens.append(token)
         position = match.end()
-
     for token in tokens:
         if token["tag"] == "number":
             if "." in token["value"]:
                 token["value"] = float(token["value"])
             else:
                 token["value"] = int(token["value"])
-
     return tokens
 
 def test_simple_tokens():
     print("testing simple tokens")
-    assert tokenize("+") == [{'tag': '+', 'value': '+', 'position': 0}]
-    assert tokenize("-") == [{'tag': '-', 'value': '-', 'position': 0}]
+    assert tokenize("+") == [{"tag": "+", "value": "+", "position": 0}]
+    assert tokenize("-") == [{"tag": "-", "value": "-", "position": 0}]
     i = 0
     for char in "+-*/()":
         tokens = tokenize(char)
-        print(tokens)
+        # print(tokens)
         assert tokens[0]["tag"] == char
         assert tokens[0]["value"] == char
         assert tokens[0]["position"] == i
-
     for characters in ["+", "-"]:
         tokens = tokenize(characters)
         assert tokens[0]["tag"] == characters
         assert tokens[0]["value"] == characters
-
     for number in ["123.45", "1.", ".1", "123"]:
         tokens = tokenize(number)
         assert tokens[0]["tag"] == "number"
@@ -71,6 +67,6 @@ def test_simple_tokens():
 
 if __name__ == "__main__":
     test_simple_tokens()
-    #tokens = tokenize("123.45")
-    #print(tokens)
+    # tokens = tokenize("123.45*+1234*/123*()***34235****")
+    # print(tokens)
     print("done.")

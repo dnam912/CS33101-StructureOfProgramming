@@ -1,2 +1,2 @@
-# struct_programming
-Structure of Programming Languages
+# Structure of Programming Languages
+CS 33101 - Structure of Programming Languages

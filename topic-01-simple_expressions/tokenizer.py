@@ -32,7 +32,7 @@ def tokenize(characters):
         assert match
         token = {
             "tag": tag,
-            "value": match.group[0],
+            "value": match.group(0),
             "position": position, 
         }
         tokens.append(token)

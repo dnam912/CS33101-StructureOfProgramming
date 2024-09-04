@@ -11,7 +11,7 @@ Accept a string of tokens, return an AST expressed as stack of dictionaries.
 """
 
 
-#from tokenizer import tokenize
+from tokenizer import tokenize
 from pprint import pprint
 
 
@@ -32,7 +32,7 @@ def parse_simple_expression(tokens):
         return node, tokens
 
 
-def parse_simple_expression(tokens):
+def parse_expression(tokens):
     return parse_simple_expression(tokens)
 
 
@@ -59,7 +59,7 @@ def test_parse_simple_expression():
     tokens = tokenize ("-2")
     ast, tokens = parse_simple_expression(tokens)
     assert ast == {
-        "tag": "negate"
+        "tag": "negate",
         "value": {"position": 1, "tag": "number", "value": 2},
     }
     # pprint(ast)
@@ -72,8 +72,8 @@ def parse_factor(tokens):
 
 
 def test_parse_factor():
-    for s in ["2", "(2)", "-2"]
-        assert parse_factor(tokenize(s)) == parse_expression(tokenize(s))
+    for s in ["2", "(2)", "-2"]:
+        assert parse_factor(tokenize(s)) == parse_simple_expression(tokenize(s))
 
 
 if __name__ == "__main__":

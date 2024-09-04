@@ -24,9 +24,15 @@ def parse_simple_expression(tokens):
         node, tokens = parse_simple_expression(tokens[1:])
         assert tokens[0]["tag"] == ")", "Error: expect ')'"
         return node, tokens[1:]
+    if tokens[0]["tag"] == "-":
+        node, tokens = parse_simple_expression(tokens[1:])
+        node = {"tag":"negate", "value":node}
+        return node, tokens
+
 
 def parse_simple_expression(tokens):
     return parse_simple_expression(tokens)
+
 
 def test_parse_simple_expression():
 
@@ -40,16 +46,26 @@ def test_parse_simple_expression():
     ast, tokens = parse_simple_expression(tokens)
     assert ast["tag"] == "number"
     assert ast["value"] == 2
-    print(ast)
+    pprint(ast)
 
     tokens = tokenize ("(2)")
     ast, tokens = parse_simple_expression(tokens)
     assert ast["tag"] == "number"
     assert ast["value"] == 2
-    print(ast)
+    pprint(ast)
+
+    tokens = tokenize ("-(2)")
+    ast, tokens = parse_simple_expression(tokens)
+    assert ast == {
+        "tag": "negate"
+        "value": {"position": 1, "tag": "number", "value": 2},
+    }
+    pprint(ast)
+
+    
 
 
 if __name__ == "__main__":
     test_parse_simple_expression()
-    print("done")
+    pprint("done")
 

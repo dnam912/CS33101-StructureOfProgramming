@@ -35,6 +35,7 @@ def parse_simple_expression(tokens):
 def parse_expression(tokens):
     return parse_simple_expression(tokens)
 
+
 def test_parse_simple_expression():
 
     """
@@ -63,6 +64,7 @@ def test_parse_simple_expression():
     }
     # pprint(ast)
 
+
 def parse_factor(tokens):
     """ 
     factor = parse_simple_expression
@@ -71,6 +73,8 @@ def parse_factor(tokens):
 
 
 def test_parse_factor():
+    print("testing parse_factor")
+
     for s in ["2", "(2)", "-2"]:
         assert parse_factor(tokenize(s)) == parse_simple_expression(tokenize(s))
 

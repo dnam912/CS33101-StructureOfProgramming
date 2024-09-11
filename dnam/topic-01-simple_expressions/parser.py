@@ -10,7 +10,6 @@ Accept a string of tokens, return an AST expressed as stack of dictionaries
 """
 
 from pprint import pprint
-
 from tokenizer import tokenize
 
 def parse_simple_expression(tokens):
@@ -41,26 +40,29 @@ def test_parse_simple_expression():
     ast, tokens = parse_simple_expression(tokens)
     assert ast["tag"] == "number"
     assert ast["value"] == 2
-    # pprint(ast)
+    pprint(ast)
+
     tokens = tokenize("(2)")
     ast, tokens = parse_simple_expression(tokens)
     assert ast["tag"] == "number"
     assert ast["value"] == 2
-    # pprint(ast)
+    pprint(ast)
+
     tokens = tokenize("-2")
     ast, tokens = parse_simple_expression(tokens)
     assert ast == {
         "tag": "negate",
         "value": {"position": 1, "tag": "number", "value": 2},
     }
-    # pprint(ast)
+    pprint(ast)
+
     tokens = tokenize("-(2)")
     ast, tokens = parse_simple_expression(tokens)
     assert ast == {
         "tag": "negate",
         "value": {"position": 2, "tag": "number", "value": 2},
     }
-    # pprint(ast)
+    pprint(ast)
 
 def parse_factor(tokens):
     """
@@ -106,27 +108,6 @@ def test_parse_term():
     ast, tokens = parse_term(tokens)
     pprint(ast)
     
-    ## TRY 1
-    #tokens = tokenize("2/3")
-    #ast, tokens = parse_term(tokens)
-    #assert ast == {
-    #    "left": {"tag": "number", "value": 2, "position": 0},
-    #    tokens[0]["tag"]: "/",
-    #    "right": {"tag": "number", "value": 3, "position": 2}
-    #}
-
-    ## TRY 2
-    #assert ast["tag"] == "/"
-    #assert ast["left"] == {
-    #    "tag": tag,
-    #    "value": {"tag": "number", "value": 2, "position": 0},
-    #}
-    #assert ast["right"] == {
-    #        "tag": "number",
-    #        "value": 3,
-    #        "position": 2
-    #    }
-
 
 
 ######################## PARSE EXPRESSION ########################
@@ -167,22 +148,3 @@ if __name__ == "__main__":
     # test_parse_expression()
     
     print("done")
-
-
-
-################
-    #i = 0
-    #for term1 in "*/":
-    #    tokens = tokenize(term1)
-    #    assert tokens[0]["tag"] == term1
-    #    assert tokens[0]["value"] == term1
-    #    assert tokens[0]["position"] == i
-    #print("term1")
-    #print(term1)
-    #pprint(ast)
-
-    #assert ast["tag"] in 
-    #assert ast["value"] in ["*", "/"]
-    #pprint(ast)
-    #ast, tokens = parse_term(tokens)
-    #assert ast["tag"] == "*"

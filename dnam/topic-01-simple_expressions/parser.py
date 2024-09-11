@@ -99,11 +99,6 @@ def test_parse_term():
     """
     print("testing parse_term")     #pass
 
-    ########### simple_expression
-    #tokens = tokenize("2*(2)")
-    #print(tokens)
-    ###########
-
     tokens = tokenize("2*3")
     ast, tokens = parse_term(tokens)
     pprint(ast)

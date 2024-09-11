@@ -1,7 +1,7 @@
 # tokenizer
 
-"""
-break character stream into tokens, provide a token stream
+""" 
+break character stream into tokens, provide a token stream 
 """
 
 import re
@@ -13,13 +13,12 @@ patterns = [
     ["\\-", "-"],
     ["\\*", "*"],
     ["\\/", "/"],
-    ["(\\d+\\.\\d*)|(\\d*\.\\d+)|(\\d+)", "number"],
+    ["(\\d+\\.\\d*)|(\\d*\\.\\d+)|(\\d+)", "number"],
 ]
-
-# string & regular spatial patterns
 
 for pattern in patterns:
     pattern[0] = re.compile(pattern[0])
+
 
 def tokenize(characters):
     tokens = []
@@ -32,8 +31,8 @@ def tokenize(characters):
         assert match
         token = {
             "tag": tag,
-            "value": match.group(0), # not [0], it's (0)
-            "position": position, 
+            "value": match.group(0),
+            "position": position,
         }
         tokens.append(token)
         position = match.end()
@@ -44,6 +43,7 @@ def tokenize(characters):
             else:
                 token["value"] = int(token["value"])
     return tokens
+
 
 def test_simple_tokens():
     print("testing simple tokens")
@@ -64,8 +64,7 @@ def test_simple_tokens():
         assert tokens[0]["tag"] == "number"
         assert tokens[0]["value"] == float(number)
 
+
 if __name__ == "__main__":
     test_simple_tokens()
-    # tokens = tokenize("123.45*+1234*/123*()***34235****")
-    # print(tokens)
     print("done.")

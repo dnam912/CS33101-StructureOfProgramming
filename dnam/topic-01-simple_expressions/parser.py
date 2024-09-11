@@ -1,6 +1,5 @@
 """
 parser.py -- implement parser for simple expressions
-
 Accept a string of tokens, return an AST expressed as stack of dictionaries
 """
 """
@@ -11,6 +10,7 @@ Accept a string of tokens, return an AST expressed as stack of dictionaries
 """
 
 from pprint import pprint
+
 from tokenizer import tokenize
 
 def parse_simple_expression(tokens):
@@ -68,7 +68,6 @@ def parse_factor(tokens):
     """
     return parse_simple_expression(tokens)
 
-#  test_parse_factor
 def test_parse_factor():
     """
     factor = simple_expression
@@ -76,8 +75,10 @@ def test_parse_factor():
     print("testing parse_factor")
     for s in ["2", "(2)", "-2"]:
         assert parse_factor(tokenize(s)) == parse_simple_expression(tokenize(s))
+    
 
 
+######################## TERM ########################
 def parse_term(tokens):
     """
     term = factor { "*"|"/" factor }
@@ -89,14 +90,46 @@ def parse_term(tokens):
         node = {"tag": tag, "left": node, "right": right_node}
     return node, tokens
 
-#  test_parse_term()
+
 def test_parse_term():
     """
     term = factor { "*"|"/" factor }
     """
-    pass
+    print("testing parse_term")     #pass
+
+    ########### simple_expression
+    #tokens = tokenize("2*(2)")
+    #print(tokens)
+    ###########
+
+    tokens = tokenize("2*3")
+    ast, tokens = parse_term(tokens)
+    pprint(ast)
+    
+    ## TRY 1
+    #tokens = tokenize("2/3")
+    #ast, tokens = parse_term(tokens)
+    #assert ast == {
+    #    "left": {"tag": "number", "value": 2, "position": 0},
+    #    tokens[0]["tag"]: "/",
+    #    "right": {"tag": "number", "value": 3, "position": 2}
+    #}
+
+    ## TRY 2
+    #assert ast["tag"] == "/"
+    #assert ast["left"] == {
+    #    "tag": tag,
+    #    "value": {"tag": "number", "value": 2, "position": 0},
+    #}
+    #assert ast["right"] == {
+    #        "tag": "number",
+    #        "value": 3,
+    #        "position": 2
+    #    }
 
 
+
+######################## PARSE EXPRESSION ########################
 def parse_expression(tokens):
     """
     expression = term { "+"|"-" term }
@@ -108,16 +141,48 @@ def parse_expression(tokens):
         node = {"tag": tag, "left": node, "right": right_node}
     return node, tokens
 
-
-#  test_parse_factor
 def test_parse_expression():
     """
     expression = term { "+"|"-" term }
     """
-    pass
+    #pass
+
+    #tokens = tokenize("3-2")
+    #ast, tokens = parse_expression(tokens)
+    #assert ast == {
+    #    "tag": "-",
+    #    "left": {"tag": "number", "value": 3, "position": 0},
+    #    "right": {"tag": "number", "value": 2, "position": 2},
+    #}
+    #pprint(ast)
 
 
+
+######################## MAIN ########################
 if __name__ == "__main__":
     test_parse_simple_expression()
     test_parse_factor()
+
+    test_parse_term()
+    # test_parse_expression()
+    
     print("done")
+
+
+
+################
+    #i = 0
+    #for term1 in "*/":
+    #    tokens = tokenize(term1)
+    #    assert tokens[0]["tag"] == term1
+    #    assert tokens[0]["value"] == term1
+    #    assert tokens[0]["position"] == i
+    #print("term1")
+    #print(term1)
+    #pprint(ast)
+
+    #assert ast["tag"] in 
+    #assert ast["value"] in ["*", "/"]
+    #pprint(ast)
+    #ast, tokens = parse_term(tokens)
+    #assert ast["tag"] == "*"

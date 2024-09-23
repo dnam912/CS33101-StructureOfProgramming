@@ -103,7 +103,10 @@ def test_parse_term():
     ast, tokens = parse_term(tokens)
     pprint(ast)
     
-
+def test_parse():
+    print("teesing parse")
+    tokens = tokenize("2+3/4+5")
+    ast, tokens = 
 
 ######################## PARSE EXPRESSION ########################
 def parse_expression(tokens):
